@@ -2,6 +2,7 @@
 package Main;
 
 import config.config;
+import javax.swing.JOptionPane;
 
 public class register extends javax.swing.JFrame {
 
@@ -141,13 +142,49 @@ public class register extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void regBTnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regBTnActionPerformed
+        String name = fname.getText().trim();
+        String username = uname.getText().trim();
+        String emailAddr = email.getText().trim();
+        String pass = password.getText().trim();
+
+        // 1. Check for empty fields
+        if (name.isEmpty() || username.isEmpty() || emailAddr.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields.");
+            return;
+        }
+
+        // 2. Email format validation (@gmail.com)
+        if (!emailAddr.endsWith("@gmail.com")) {
+            JOptionPane.showMessageDialog(this, "Email must be a valid Gmail address (example@gmail.com).");
+            return;
+        }
+
+        config con = new config();
+
+        // 3. Check if username already exists
+        String checkUser = "SELECT * FROM tbl_user WHERE u_uname = ?";
+        if (con.authenticate(checkUser, username)) {
+            JOptionPane.showMessageDialog(this, "Username already exists. Please choose another.");
+            return;
+        }
+
+        // 4. Check if email already exists
+        String checkEmail = "SELECT * FROM tbl_user WHERE u_email = ?";
+        if (con.authenticate(checkEmail, emailAddr)) {
+            JOptionPane.showMessageDialog(this, "Email already registered. Please use another.");
+            return;
+        }
+
+        // 5. Insert record if all validations pass
+        String sql = "INSERT INTO tbl_user (u_fname, u_uname, u_email, u_password, u_role, u_status) VALUES(?, ?, ?, ?, ?, ?)";
+        con.addRecord(sql, name, username, emailAddr, pass, "User", "Pending");
+
+        JOptionPane.showMessageDialog(this, "Registration successful! Wait for admin approval.");
+
+        // 6. Redirect to login
         login log = new login();
         log.setVisible(true);
         this.dispose();
-        
-        config con = new config();
-        String sql = "INSERT INTO tbl_user (u_fname, u_uname, u_email, u_password, u_role, u_status) VALUES(?, ?, ?, ?, ?, ?)";
-        con.addRecord(sql, fname.getText(), uname.getText(), email.getText(), password.getText(), "Admin", "Pending");
     }//GEN-LAST:event_regBTnActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked

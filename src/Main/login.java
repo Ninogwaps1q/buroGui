@@ -3,7 +3,11 @@ package Main;
 
 import Admin.Admin;
 import User.userDashboard;
+import config.Session;
 import config.config;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 
@@ -105,17 +109,42 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emActionPerformed
 
+    
+    private String getUsernameByEmail(String email) {
+        String username = null;
+        String sql = "SELECT u_uname FROM tbl_user WHERE u_email = ?";
+
+        try (Connection conn = config.connectDB();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                username = rs.getString("u_uname");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error fetching username: " + e.getMessage());
+        }
+
+        return username;
+    }
+    
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         config con = new config();
         String sql = "SELECT * FROM tbl_user WHERE u_email = ? AND u_password = ? AND u_role = ? AND u_status = ?";
 
-        if(con.authenticate(sql, em.getText(), ps.getText(), "Admin", "Approve")){
+         if (con.authenticate(sql, em.getText(), ps.getText(), "Admin", "Approve")) {
+            // THIS is where you should set the session
+            Session.setUsername(getUsernameByEmail(em.getText())); // <--- Here
             JOptionPane.showMessageDialog(null, "Login Admin Success!");
             Admin ad = new Admin();
             ad.setVisible(true);
             this.dispose();
-        }else if(con.authenticate(sql, em.getText(), ps.getText(), "User", "Approve")){
-            JOptionPane.showMessageDialog(null, "Login Csshier Success!");
+        } else if (con.authenticate(sql, em.getText(), ps.getText(), "User", "Approve")) {
+            Session.setUsername(getUsernameByEmail(em.getText())); // <--- And here for user
+            JOptionPane.showMessageDialog(null, "Login Cashier Success!");
             userDashboard ud = new userDashboard();
             ud.setVisible(true);
             this.dispose();

@@ -2,14 +2,42 @@
 package Admin;
 
 import Main.login;
+import config.Session;
+import config.config;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 
 public class Admin extends javax.swing.JFrame {
 
     public Admin() {
         initComponents();
+        loadUserProfile();
     }
+    
+    
+     private void loadUserProfile() {
+        String sql = "SELECT u_fname, u_email, u_role FROM tbl_user WHERE u_uname = ?";
+        try (Connection conn = config.connectDB();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
 
+            pst.setString(1, Session.getUsername()); // get logged-in username
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                lbNameText.setText(rs.getString("u_fname"));
+                lbEmailText.setText(rs.getString("u_email"));
+                lbRoleText.setText(rs.getString("u_role"));
+            } else {
+                JOptionPane.showMessageDialog(this, "User not found!");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading profile: " + e.getMessage());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -29,6 +57,15 @@ public class Admin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lbRole = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        lbNameText = new javax.swing.JLabel();
+        lbRoleText = new javax.swing.JLabel();
+        lbEmailText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,6 +146,38 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 100, 40));
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-profile-100.png"))); // NOI18N
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 100, 110));
+
+        lbRole.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        lbRole.setText("Role:");
+        jPanel2.add(lbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, -1, -1));
+
+        lbName.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        lbName.setText("Name:");
+        jPanel2.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
+
+        lbEmail.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        lbEmail.setText("Email:");
+        jPanel2.add(lbEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
+
+        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 190, 20));
+
+        lbNameText.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jPanel7.add(lbNameText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 20));
+
+        lbRoleText.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jPanel7.add(lbRoleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 20));
+
+        lbEmailText.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jPanel7.add(lbEmailText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 230, 20));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 280, 100));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 500));
 
         pack();
@@ -175,12 +244,21 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbEmailText;
+    private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbNameText;
+    private javax.swing.JLabel lbRole;
+    private javax.swing.JLabel lbRoleText;
     private javax.swing.JLabel userBtn;
     // End of variables declaration//GEN-END:variables
 }
