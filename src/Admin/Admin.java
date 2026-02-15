@@ -54,6 +54,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        userBtn1 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        userBtn2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -132,6 +136,46 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 100, 40));
 
+        jPanel8.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userBtn1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        userBtn1.setText("Product");
+        userBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userBtn1MouseClicked(evt);
+            }
+        });
+        jPanel8.add(userBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 50, -1));
+
+        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 100, 40));
+
+        jPanel9.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userBtn2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        userBtn2.setText("Orders");
+        userBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userBtn2MouseClicked(evt);
+            }
+        });
+        jPanel9.add(userBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 50, -1));
+
+        jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 100, 40));
+
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 500));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -204,6 +248,24 @@ public class Admin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jPanel6MouseClicked
 
+    private void userBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userBtn1MouseClicked
+        adminProduct ap = new adminProduct();
+        ap.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_userBtn1MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void userBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userBtn2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userBtn2MouseClicked
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel9MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -253,6 +315,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbEmailText;
     private javax.swing.JLabel lbName;
@@ -260,5 +324,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel lbRole;
     private javax.swing.JLabel lbRoleText;
     private javax.swing.JLabel userBtn;
+    private javax.swing.JLabel userBtn1;
+    private javax.swing.JLabel userBtn2;
     // End of variables declaration//GEN-END:variables
 }

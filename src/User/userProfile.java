@@ -104,6 +104,9 @@ public class userProfile extends javax.swing.JFrame {
 
         panelProduct.setBackground(new java.awt.Color(255, 102, 102));
         panelProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelProductMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panelProductMouseEntered(evt);
             }
@@ -248,6 +251,12 @@ public class userProfile extends javax.swing.JFrame {
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_panelLogoutMouseClicked
+
+    private void panelProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelProductMouseClicked
+        userProduct upr = new userProduct();
+        upr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_panelProductMouseClicked
     
     /**
      * @param args the command line arguments
